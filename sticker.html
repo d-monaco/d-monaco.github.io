@@ -1,113 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sticker Choce</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticker Choce</title>
 
-	<script>
-        function getSheet(){
-            document.getElementById("wb_root").remove();
-            const body = document.getElementById("tables"),
-                    loader = document.createElement('div');
-            loader.id = "loader";
-            while(body.hasChildNodes())//clean previous tables
-                body.removeChild(body.firstChild);
-            body.appendChild(loader);
-        
-            var numStickerNorm = document.getElementById("numStickerNorm").value
-            var numStickerSpec = document.getElementById("numStickerSpec").value
-            const baseUrl = "https://script.google.com/macros/s/AKfycbzD92vLpimrG7CwCqdtraA2sVoIb42pXUZcVb824Q3hTInUyx1umnrp6Q4ZgdCLGDK4HA/exec";  // Please set your Web Apps URL.
-            const para = {
-                numSticker: numStickerNorm,
-                numStickerHalf: numStickerSpec
-            };
-            const q = new URLSearchParams(para);
-            const url = baseUrl + "?" + q;
-            fetch(url)
-                .then(response => response.json())
-                .then(json => getSticker(json, numStickerNorm, numStickerSpec))
-        }
-        
-        function getSticker(choice, numStickerNorm, numStickerSpec){
-            //the choice is made of 1 matrix of normal stickers
-            // and 1 array of special stickers
-        
-            var stickerNorm = choice[0];
-            var stickerSpec = choice[1];
-            const body = document.getElementById("tables"),
-                    tblNorm = document.createElement('table'),
-                    tblSpec = document.createElement('table'),
-                    labelNorm = document.createElement('label'),
-                    labelSpec = document.createElement('label');
-            tblSpec.style.width = '300px';
-            tblSpec.style.border = '1px solid black';
-            tblNorm.style.width = '385px';
-            tblNorm.style.border = '1px solid black';
-        
-            labelSpec.innerHTML = "Sticker Speciali (per permanenti non terra)";
-            for(let i = 0; i < numStickerSpec; i++){
-                const tr = tblSpec.insertRow();
-                const td = tr.insertCell();
-                td.style.border = '1px solid black';
-                td.appendChild(document.createTextNode(stickerSpec[i]));
-            }
-        
-            labelNorm.innerHTML = "Sticker Normali";
-            for (let i = 0; i < numStickerNorm; i++) {
-                const tr = tblNorm.insertRow();
-                for (let j = 0; j < stickerNorm[0].length; j++) {
-                    const td = tr.insertCell();
-                    td.style.border = '1px solid black';
-                    td.appendChild(document.createTextNode(stickerNorm[i][j]));
-                }
-            }
-        
-            while(body.hasChildNodes())//clean loading screen
-                body.removeChild(body.firstChild);
-        
-            body.appendChild(labelSpec);
-            body.appendChild(tblSpec);
-            body.appendChild(document.createElement("br"));
-            body.appendChild(labelNorm);
-            body.appendChild(tblNorm);
-        }
+  <script>
+    function getSheet() {
+      const body = document.getElementById("tables"),
+        loader = document.createElement('div');
+      loader.id = "loader";
+      while (body.hasChildNodes()) //clean previous tables
+        body.removeChild(body.firstChild);
+      body.appendChild(loader);
 
-    </script>
+      var numStickerNorm = document.getElementById("numStickerNorm").value
+      var numStickerSpec = document.getElementById("numStickerSpec").value
+      const baseUrl = "https://script.google.com/macros/s/AKfycbzD92vLpimrG7CwCqdtraA2sVoIb42pXUZcVb824Q3hTInUyx1umnrp6Q4ZgdCLGDK4HA/exec"; // Please set your Web Apps URL.
+      const para = {
+        numSticker: numStickerNorm,
+        numStickerHalf: numStickerSpec
+      };
+      const q = new URLSearchParams(para);
+      const url = baseUrl + "?" + q;
+      fetch(url)
+        .then(response => response.json())
+        .then(json => getSticker(json, numStickerNorm, numStickerSpec))
+    }
+
+    function getSticker(choice, numStickerNorm, numStickerSpec) {
+      //the choice is made of 1 matrix of normal stickers
+      // and 1 array of special stickers
+
+      var stickerNorm = choice[0];
+      var stickerSpec = choice[1];
+      const body = document.getElementById("tables"),
+        tblNorm = document.createElement('table'),
+        tblSpec = document.createElement('table'),
+        labelNorm = document.createElement('label'),
+        labelSpec = document.createElement('label');
+      tblSpec.style.width = '300px';
+      tblSpec.style.border = '1px solid black';
+      tblNorm.style.width = '385px';
+      tblNorm.style.border = '1px solid black';
+
+      labelSpec.innerHTML = "Sticker Speciali (per permanenti non terra)";
+      for (let i = 0; i < numStickerSpec; i++) {
+        const tr = tblSpec.insertRow();
+        const td = tr.insertCell();
+        td.style.border = '1px solid black';
+        td.appendChild(document.createTextNode(stickerSpec[i]));
+      }
+
+      labelNorm.innerHTML = "Sticker Normali";
+      for (let i = 0; i < numStickerNorm; i++) {
+        const tr = tblNorm.insertRow();
+        for (let j = 0; j < stickerNorm[0].length; j++) {
+          const td = tr.insertCell();
+          td.style.border = '1px solid black';
+          td.appendChild(document.createTextNode(stickerNorm[i][j]));
+        }
+      }
+
+      while (body.hasChildNodes()) //clean loading screen
+        body.removeChild(body.firstChild);
+
+      body.appendChild(labelSpec);
+      body.appendChild(tblSpec);
+      body.appendChild(document.createElement("br"));
+      body.appendChild(labelNorm);
+      body.appendChild(tblNorm);
+    }
+  </script>
 
 
 </head>
+
 <body>
 
+  <ol>
+    <li> Una carta può guadagnare solo uno sticker per draft</li>
+    <li> Uno sticker non può essere coperto da un'altro sticker</li>
+    <li> Uno sticker deve essere usato nella sua interezza </li>
+    <li> Se uno sticker copre parte di una abilità di una carta, questa perde quell'abilità</li>
+    <li> Uno sticker non può coprire nome, costo di mana, barra del tipo e forza/costituzione; eccezione lo sticker del cangiante</li>
+    <li> '{C}' su uno sticker indica uno qualsiasi dei colori della carta, se la carta è incolore indica {1}</li>
+    <li> '~' su uno sticker indica la carta stessa</li>
+    <li> Un qualsiasi sticker che può andare su una creatura può essere messo su un aura/equipaggiamento aggiungendo il testo "la creatura assegnata prende ..."</li>
+    <li> Una carta che ha ricevuto tre o più sticker può anche ricevere uno sticker per modificarne il nome</li>
+  </ol>
+  <a target="_blank" href="https://docs.google.com/spreadsheets/d/1TZnQFkY0hvxtyF_apCA1ORscy_PS04ZL2WS0uFSfOWE/edit?usp=sharing" class="btn btn-primary">Clicka qui per la lista completa di sticker</a>
 
-<ol>
-        <li>1) Una carta può guadagnare solo uno sticker per draft</li>
-        <li>2) Uno sticker non può essere coperto da un'altro sticker</li>
-        <li>3) Uno sticker deve essere usato nella sua interezza </li>
-        <li>4) Se uno sticker copre parte di una abilità di una carta, questa perde quell'abilità</li>
-        <li>5) Uno sticker non può coprire nome, costo di mana, barra del tipo e forza/costituzione; eccezione lo sticker del cangiante</li>
-        <li>6) '{C}' su uno sticker indica uno qualsiasi dei colori della carta, se la carta è incolore indica {1}</li>
-        <li>7) '~' su uno sticker indica la carta stessa</li>
-        <li>8) Un qualsiasi sticker che può andare su una creatura può essere messo su un aura/equipaggiamento aggiungendo il testo "la creatura assegnata prende ..."</li>
-        <li>9) Una carta che ha ricevuto tre o più sticker può anche ricevere uno sticker per modificarne il nome</li>
-        <a target="_blank" href="https://docs.google.com/spreadsheets/d/1TZnQFkY0hvxtyF_apCA1ORscy_PS04ZL2WS0uFSfOWE/edit?usp=sharing" class="btn btn-primary">Clicka qui per la lista completa di sticker</a>
-</ol>
+  <br>
 
+  <div>
+    <label id="text">Numero Sticker Normali</label>
+    <input type="number" id="numStickerNorm" value="5"><br><label id="text">Numero Sticker Speciali</label>
+    <input type="number" id="numStickerSpec" value="3">
+  </div>
+  <button id="button" onclick="getSheet()">Randomizza</button>
+
+  <p>
+    Puoi scegliere fino ad uno Sticker Speciale, e un totale di 3 Sticker
     <br>
-    
-    <div>
-        <label id="text">Numero Sticker Normali</label>
-        <input type="number" id="numStickerNorm" value="5"><br><label id="text">Numero Sticker Speciali</label>
-        <input type="number" id="numStickerSpec" value="3"></div>
-    <div id="button" onclick="getSheet()">Randomizza</div>
+    Quindi: 1 Speciale + 2 Normali, oppure 3 Normali
+  </p>
 
-    <p>
-        Puoi scegliere fino ad uno Sticker Speciale, e un totale di 3 Sticker
-        <br>
-        Quindi: 1 Speciale + 2 Normali, oppure 3 Normali
-    </p>
-
-    <div id="tables"></div>
+  <div id="tables"></div>
 
 </body>
+
 </html>
