@@ -6,14 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sticker Choce</title>
 
+  <!--BootStrap links-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
   <script>
     function getSheet() {
       const body = document.getElementById("tables"),
-        loader = document.createElement('div');
-      loader.id = "loader";
+        loader = document.getElementById("loader");
+      loader.hidden=false;
+
       while (body.hasChildNodes()) //clean previous tables
         body.removeChild(body.firstChild);
-      body.appendChild(loader);
 
       var numStickerNorm = document.getElementById("numStickerNorm").value
       var numStickerSpec = document.getElementById("numStickerSpec").value
@@ -40,6 +44,12 @@
         tblSpec = document.createElement('table'),
         labelNorm = document.createElement('label'),
         labelSpec = document.createElement('label');
+
+      /* 
+      tblNorm.className = "table table-dark";
+      tblSpec.className = "table table-dark";
+      */
+
       tblSpec.style.width = '300px';
       tblSpec.style.border = '1px solid black';
       tblNorm.style.width = '385px';
@@ -63,8 +73,8 @@
         }
       }
 
-      while (body.hasChildNodes()) //clean loading screen
-        body.removeChild(body.firstChild);
+      //clean loading screen
+      document.getElementById("loader").hidden=true;
 
       body.appendChild(labelSpec);
       body.appendChild(tblSpec);
@@ -106,6 +116,8 @@
     <br>
     Quindi: 1 Speciale + 2 Normali, oppure 3 Normali
   </p>
+
+  <div id="loader" class="spinner-border" role="status" hidden="true"></div>
 
   <div id="tables"></div>
 
